@@ -1,4 +1,4 @@
-json = @all_products.map do |product|
+json = @products.map do |product|
   {
     id: product.id,
     name: product.name,
