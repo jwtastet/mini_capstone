@@ -3,7 +3,7 @@ class Api::ProductsController < ApplicationController
     @products = Product.all
 
     if params[:search]
-      @products = @products.includes_name(params[:search])
+      @products = @products.name_search(params[:search])
     end
 
     if params[:sort] && params[:sort_order]
@@ -18,8 +18,8 @@ class Api::ProductsController < ApplicationController
       end
     end
 
-    if params[:sort] = false
-      @products = @products.order("id")
+    if params[:sort] == nil
+      @products = @products.order("id ASC")
     end
 
     if params[:discount]
@@ -54,11 +54,9 @@ class Api::ProductsController < ApplicationController
     @product.price = params["price"] || @product.price
     @product.image_url = params["image_url"] || @product.image_url
     @product.description = params["description"] || @product.description
-    if @product.save
-      render "show.json.jb"
-    else
-      render json: { erorrs: @product.errors.full_messages }, status: 422
-    end
+    @product.supply_id = params["supply_id"] || @product.supply_id
+    @product.save
+    render "show.json.jb"
   end
 
   def destroy

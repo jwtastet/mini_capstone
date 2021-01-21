@@ -17,5 +17,5 @@ class Product < ApplicationRecord
 
   scope :discount, -> { where("price < 20") }
 
-  scope :includes_name, ->(search = "Co") { where("name ILIKE ?", search) }
+  scope :name_search, ->(search) { where("name ILIKE ?", "%#{search}%") }
 end
