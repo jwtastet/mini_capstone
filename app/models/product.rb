@@ -15,6 +15,14 @@ class Product < ApplicationRecord
     total = self.price.to_f + self.tax
   end
 
+  def supplier
+    Supplier.find_by(id: self.supply_id)
+  end
+
+  def images
+    Image.where(product_id: self.id)
+  end
+
   scope :discount, -> { where("price < 20") }
 
   scope :name_search, ->(search) { where("name ILIKE ?", "%#{search}%") }
