@@ -1,0 +1,4 @@
+json = @images.map do |image|
+  render partial: "image.json.jb", locals: { image: image }
+end
+return json
