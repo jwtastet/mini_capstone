@@ -23,6 +23,10 @@ class Product < ApplicationRecord
     Image.where(product_id: self.id)
   end
 
+  def orders
+    Order.where(product_id: self.id)
+  end
+
   scope :discount, -> { where("price < 20") }
 
   scope :name_search, ->(search) { where("name ILIKE ?", "%#{search}%") }
