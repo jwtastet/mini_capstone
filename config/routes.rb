@@ -19,5 +19,9 @@ Rails.application.routes.draw do
     post "/images" => "images#create"
     patch "images/:id" => "images#update"
     delete "/images/:id" => "images#destroy"
+
+    get "/orders" => "orders#index"
+    get "/orders/:id" => "orders#show"
+    post "/orders" => "orders#create"
   end
 end

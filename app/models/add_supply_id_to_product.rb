@@ -1,2 +1,0 @@
-class AddSupplyIdToProduct < ApplicationRecord
-end

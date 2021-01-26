@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  def products
+  def product
     Product.find_by(id: self.product_id)
   end
 
