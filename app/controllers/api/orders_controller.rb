@@ -1,4 +1,6 @@
 class Api::OrdersController < ApplicationController
+  before_action :authorize_user
+
   def create
     @order = Order.new({
       user_id: current_user.id,
@@ -18,12 +20,7 @@ class Api::OrdersController < ApplicationController
   def index
     @orders = Order.all
     @orders = @orders.where("user_id = #{current_user.id}")
-
-    if current_user.id
-      render "index.json.jb"
-    else
-      render json: { errors: @orders.errors.full_messages }, status: 442
-    end
+    render "index.json.jb"
   end
 
   def show

@@ -44,3 +44,20 @@ image.save
 
 image = Image.new({ url: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS09Gjw0LuMxHSheCFkgCA_ls6F_m2vMBfc6o_QtEzxXplrPKh3rpmLjT32hWrmUcpnmgD4-7OKgAxFs1f90MYFJ48iLgk4W294CyRCYerPb4_hvexwbgIcXA&usqp=CAc", product_id: 5 })
 image.save
+
+User.create!(name: "Joey", email: "joey@test.com", password: "password")
+User.create!(name: "Jane", email: "jane@test.com", password: "password")
+
+Category.create!(name: "Glass")
+Category.create!(name: "Decoration")
+Category.create!(name: "Storage")
+Category.create!(name: "Bar Tool")
+
+CategoryProduct.create!(product_id: 1, category_id: 4)
+CategoryProduct.create!(product_id: 2, category_id: 1)
+CategoryProduct.create!(product_id: 2, category_id: 2)
+CategoryProduct.create!(product_id: 3, category_id: 3)
+CategoryProduct.create!(product_id: 3, category_id: 2)
+CategoryProduct.create!(product_id: 4, category_id: 2)
+CategoryProduct.create!(product_id: 4, category_id: 3)
+CategoryProduct.create!(product_id: 5, category_id: 1)

@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+  has_many :category_products
+  has_many :categories, through: :category_products
+
   validates :name, :price, presence: true
   validates :price, numericality: { greater_than: 0 }
   validates :description, length: { in: 2..500 }
@@ -25,6 +28,10 @@ class Product < ApplicationRecord
 
   def orders
     Order.where(product_id: self.id)
+  end
+
+  def category_products
+    CategoryProduct.where(product_id: self.id)
   end
 
   scope :discount, -> { where("price < 20") }
