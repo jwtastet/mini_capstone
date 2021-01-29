@@ -1,20 +1,31 @@
 class Api::OrdersController < ApplicationController
-  before_action :authorize_user
+  before_action :authenticate_user
 
   def create
+    @carted_products = CartedProduct.where(user_id: current_user.id)
+    @carted_products = @carted_products.where(status: "Carted")
+
     @order = Order.new({
       user_id: current_user.id,
-      product_id: params["product_id"],
-      quantity: params["quantity"],
     })
-    @order.subtotal = @order.product.price * @order.quantity
-    @order.tax = @order.product.tax * @order.quantity
-    @order.total = @order.product.total * @order.quantity
-    if @order.save
-      render "show.json.jb"
-    else
-      render json: { errors: @order.errors.full_messages }, status: 442
+    @order.save
+    subtotal = 0.0
+    tax = 0.0
+    total = 0.0
+
+    @carted_products.each do |i|
+      i.order_id = @order.id
+      i.status = "purchased"
+      i.save
+      subtotal = subtotal + i.product.price * i.quantity
+      tax = tax + i.product.tax * i.quantity
+      total = total + i.product.total * i.quantity
     end
+    @order.subtotal = subtotal
+    @order.tax = tax
+    @order.total = total
+    @order.save
+    render "show.json.jb"
   end
 
   def index
@@ -25,7 +36,7 @@ class Api::OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params["id"])
-    if @order.user.id == current_user.id
+    if @order.user_id == current_user.id
       render "show.json.jb"
     else
       render json: { message: "this order does not belong to you." }

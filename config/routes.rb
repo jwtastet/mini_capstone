@@ -15,9 +15,9 @@ Rails.application.routes.draw do
     delete "/products/:id" => "products#destroy"
 
     get "/images" => "images#index"
-    get "images/:id" => "images#show"
+    get "/images/:id" => "images#show"
     post "/images" => "images#create"
-    patch "images/:id" => "images#update"
+    patch "/images/:id" => "images#update"
     delete "/images/:id" => "images#destroy"
 
     get "/orders" => "orders#index"
@@ -26,5 +26,6 @@ Rails.application.routes.draw do
 
     post "/carted_products" => "carted_products#create"
     get "/carted_products" => "carted_products#index"
+    delete "/carted_products/:id" => "carted_products#destroy"
   end
 end
