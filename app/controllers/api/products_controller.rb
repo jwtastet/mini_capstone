@@ -43,6 +43,7 @@ class Api::ProductsController < ApplicationController
       description: params["description"],
     })
     if @product.save
+      Image.create(product_id: @product.id, url: params[:image_url])
       render "show.json.jb"
     else
       render json: { errors: @product.errors.full_messages }, status: 422

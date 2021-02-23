@@ -3,6 +3,7 @@
   name: product.name,
   price: product.price,
   images: product.images,
+  primary_image_url: product.primary_image_url,
   description: product.description,
   supplier: product.supplier,
   discount: product.is_discounted?,
